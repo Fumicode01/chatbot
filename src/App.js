@@ -1,6 +1,8 @@
 import React from 'react';
 import defaultDataset from './dataset';
 import './assets/styles/style.css';
+import {AnswersList} from './components/index.js'
+
 
 
 export default class App extends React.Component {
@@ -9,11 +11,24 @@ export default class App extends React.Component {
     this.state ={
       answers: [],
       chats: [],
-      currentId: [],
+      currentId: "init",
       dataset: defaultDataset,
       open: false,
 
     }
+  }
+
+  initAnswer = () => {
+    const initDataset = this.state.dataset[this.state.currentId];
+    const initAnswers = initDataset.answers
+  
+    this.setState({
+      answers: initAnswers
+    })
+  }
+
+  componentDidMount() {
+      this.initAnswer()
   }
 
 
@@ -21,7 +36,7 @@ export default class App extends React.Component {
     return (
       <section className="c-section">
         <div className="c-box">
-
+          <AnswersList  answers={this.state.answers}/>
         </div>
       </section>
     );
